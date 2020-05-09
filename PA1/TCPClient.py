@@ -5,32 +5,22 @@
 # server client and receives a response and then decodes the response.
 
 
-# import socket
-# HOST = socket.gethostname()
-# PORT = 1024
-
-# with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-#     s.connect((HOST, PORT))
-#     message = input('Input lowercase sentence: ')
-#     s.sendall(message.encode())
-#     msg=s.recv(1024)
-#     print(msg.decode("utf-8"))
-#     s.close()
-
 from socket import *
-serverName = gethostname()
+serverName = '172.30.64.1' # gethostbyname(gethostname()) # returns the host IP
 serverPort = 12000
-# creates socket object with IPv4 Protocol (AF_INET) TCP Protocol (Sock_STREAM)
+# Creates socket object with IPv4 Protocol (AF_INET) TCP Protocol (Sock_STREAM).
 clientSocket = socket(AF_INET, SOCK_STREAM)
-# establishes connection
+# Establishes connection with server (initiates 3-way handshake).
 clientSocket.connect((serverName, serverPort))
-# asks for user input
+# Asks for user input.
 sentence = raw_input('Input lowercase sentence: ')
-# encodes the user input and transmits to server socket
+# Encodes the user input (String to Bytes) and transmits to server 
+# via established TCP connection. 
+# Note: no address needed for TCP.
 clientSocket.send(sentence.encode())
-# receives encoded returned response from server
+# Receives encoded returned response from server.
 modifiedSentence = clientSocket.recv(1024)
-# decodes modifiedSentence and prints out to terminal
+# Decodes modifiedSentence (Byte to String) and prints out to terminal.
 print('From Server: ' + modifiedSentence.decode())
-# closes the socket
+# Closes the socket.
 clientSocket.close()

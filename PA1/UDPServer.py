@@ -6,17 +6,19 @@
 # messag back to the client
 
 from socket import *
-
 serverPort = 12000
-# instantiates the socket object with IPv4 and the UDP protocol.
+# Instantiates the socket object with IPv4 and the UDP protocol.
 serverSocket = socket(AF_INET, SOCK_DGRAM)
-# assigns the portnumber
+# Assigns the port number to the server socket
 serverSocket.bind(('', serverPort))
 print("The server is ready to receive")
+# While loop allows for indefinite processing of messages from client.
 while True:
-    # Receives UDP messages. recvfrom() returns a pair (string, address)
+    # Receives UDP messages. recvfrom() returns a pair message and the client's address
+    # (message, (IP, port #)). 
     message, clientAddress = serverSocket.recvfrom(2048)
-    # converts the string message to upper case letters
+    # Decodes the message (Byte to String). Then processes the string message to upper case letters
     modifiedMessage = message.decode().upper()
-    # returns the message to the client
+    # Encodes the message first (String to Byte). 
+    # Then returns the message to the client using the previously received address.
     serverSocket.sendto(modifiedMessage.encode(), clientAddress)

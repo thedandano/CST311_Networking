@@ -5,18 +5,21 @@
 # server client and receives a response and then decodes the response.
 
 from socket import *
-serverName = gethostname() # gets the host's name
+# gets the host's IP. In this case host is also destination
+serverName = gethostbyname(gethostname()) 
 serverPort = 12000
 
 #instantiates the socket object with AF_INET (IPv4) and SOCK_DGRAM (UDP)
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 
 message = raw_input('Input lowercase sentence: ')
-# Transmits UDP messages
+# Ecodes the message to Byte type and Transmits the message via UDP using the 
+# server's address information. 
 clientSocket.sendto(message.encode(),(serverName, serverPort))
-# Receives UDP messages. recvfrom() returns a pair (string, address)
+# Receives UDP messages. recvfrom() returns a pair, the modified message
+# from the server and teh server address (string, (IP, Port #)).
 modifiedMessage, serverAddress = clientSocket.recvfrom(2048)
-
+# Decodes the message (Byte to String) and prints out to console.
 print(modifiedMessage.decode())
 # closes the socket connection
 clientSocket.close()
