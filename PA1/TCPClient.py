@@ -6,7 +6,7 @@
 
 
 from socket import *
-serverName = '172.30.64.1' # gethostbyname(gethostname()) # returns the host IP
+serverName = gethostbyname(gethostname()) # returns the host IP
 serverPort = 12000
 # Creates socket object with IPv4 Protocol (AF_INET) TCP Protocol (Sock_STREAM).
 clientSocket = socket(AF_INET, SOCK_STREAM)

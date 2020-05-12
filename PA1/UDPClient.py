@@ -9,11 +9,11 @@ from socket import *
 serverName = gethostbyname(gethostname()) 
 serverPort = 12000
 
-#instantiates the socket object with AF_INET (IPv4) and SOCK_DGRAM (UDP)
+# Instantiates the socket object with AF_INET (IPv4) and SOCK_DGRAM (UDP)
 clientSocket = socket(AF_INET, SOCK_DGRAM)
 
 message = raw_input('Input lowercase sentence: ')
-# Ecodes the message to Byte type and Transmits the message via UDP using the 
+# Encodes the message to Byte type and Transmits the message via UDP using the 
 # server's address information. 
 clientSocket.sendto(message.encode(),(serverName, serverPort))
 # Receives UDP messages. recvfrom() returns a pair, the modified message
@@ -21,5 +21,5 @@ clientSocket.sendto(message.encode(),(serverName, serverPort))
 modifiedMessage, serverAddress = clientSocket.recvfrom(2048)
 # Decodes the message (Byte to String) and prints out to console.
 print(modifiedMessage.decode())
-# closes the socket connection
+# Closes the socket connection
 clientSocket.close()
